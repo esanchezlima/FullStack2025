@@ -1,0 +1,35 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Transient</h5>
+                <p class="card-text">Controller : @Model.ControllerData.GuidTrasient</p>
+                <p class="card-text">Client     : @Model.ClientData.GuidTrasient</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Scoped</h5>
+                <p class="card-text">Controller : @Model.ControllerData.GuidScoped</p>
+                <p class="card-text">Client     : @Model.ClientData.GuidScoped</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Singleton</h5>
+                <p class="card-text">Controller : @Model.ControllerData.GuidSingleton</p>
+                <p class="card-text">Client     : @Model.ClientData.GuidSingleton</p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+@Library_Service_HostAddress = http://localhost:5094
+
+GET {{Library_Service_HostAddress}}/api/authors
+Accept: application/json
+
+###
+
+GET {{Library_Service_HostAddress}}/api/authors/578359b7-1967-41d6-8b87-64ab7605587e
+Accept: application/json
+
+###
+
+POST {{Library_Service_HostAddress}}/api/authors
+Content-Type: application/json
+Accept: application/json
+{
+  "firstName": "Erick",
+  "lastName": "Aróstegui",
+  "dateOfBirth": "1990-04-28T18:36:15.207Z",
+  "genre": "Action"
+}
+
+###
+
+PUT {{Library_Service_HostAddress}}/api/authors/578359b7-1967-41d6-8b87-64ab7605587e
+Content-Type: application/json
+Accept: application/json
+{
+  "firstName": "Tom 2",
+  "lastName": "Lanoye 2",
+  "genre": "Various",
+  "dateOfBirth": "1958-04-28T18:38:04.013Z"
+}
+
+###
+
+PUT {{Library_Service_HostAddress}}/api/authors/eea3af91-7e58-4550-80cb-143ceab6a9de
+Content-Type: application/json
+Accept: application/json
+{
+  "firstName": "Tom 3",
+  "lastName": "Lanoye 3",
+  "genre": "Various",
+  "dateOfBirth": "1958-04-28T18:38:04.013Z"
+}
+
+###
+
+GET {{Library_Service_HostAddress}}/api/authors/eea3af91-7e58-4550-80cb-143ceab6a9de
+Accept: application/json
+
+###
+
+DELETE {{Library_Service_HostAddress}}/api/authors/eea3af91-7e58-4550-80cb-143ceab6a9de
+Accept: application/json
+
+
+###
+GET {{Library_Service_HostAddress}}/api/authors?Fields=Name&pageNumber=2&pageSize=2
+Accept: application/vnd.erick.hateoas+json
+
+  
+###
+GET {{Library_Service_HostAddress}}/api/authors?Fields=Name&pageNumber=2&pageSize=2
+Accept: application/json

@@ -1,0 +1,1 @@
+﻿global using FullStack.Net.DI.Concept;

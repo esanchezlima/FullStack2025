@@ -1,0 +1,31 @@
+@use '@angular/material' as mat;
+@use "../m3-theme.scss";
+@use "./app/ui/library/shell/layout/library-shell-component.theme";
+
+@include mat.core();
+
+$full-stack-ng-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+$theme: m3-theme.$light-theme;
+
+:root {
+  @include mat.all-component-themes($theme);
+  @include library-shell-component.theme($theme);
+  @include mat.color-variants-backwards-compatibility($theme);
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.w-100{
+  width:100%;
+}

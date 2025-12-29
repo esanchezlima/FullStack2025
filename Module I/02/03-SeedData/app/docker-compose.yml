@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  library.service:
+    image: ${DOCKER_REGISTRY-}libraryservice
+    container_name: library.service
+    build:
+      context: .
+      dockerfile: Backend/Domain/Library/Library.Service/Dockerfile
+    ports:
+      - 8082:8080
+      - 8083:8081
+    networks:
+      - backend
+  security.service:
+    image: ${DOCKER_REGISTRY-}securityservice
+    container_name: security.service
+    build:
+      context: .
+      dockerfile: Backend/Infrastructure/Security/Security.Service/Dockerfile
+    ports:
+      - 8084:80
+      - 8085:443
+    networks:
+      - backend
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    container_name: sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password1234
+    ports:
+      - 1434:1433
+    networks:
+     - backend
+networks:
+  backend:
+    name: backend
+    driver: bridge
+

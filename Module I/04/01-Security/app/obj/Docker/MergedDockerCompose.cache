@@ -1,0 +1,80 @@
+name: dockercompose9403000608567302354
+services:
+  keycloak:
+    command:
+      - start-dev
+    container_name: keycloak
+    environment:
+      KC_DB: mssql
+      KC_DB_PASSWORD: Password1234
+      KC_DB_URL: jdbc:sqlserver://sqlserver:1433;databaseName=keycloak;encrypt=false
+      KC_DB_USERNAME: sa
+      KC_TRANSACTION_XA_ENABLED: "false"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: Password1234
+    image: quay.io/keycloak/keycloak:24.0.2
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8081"
+        protocol: tcp
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: D:\Ernesto\GalaxyTraining\Fullstack\FullStack202404\FullStack202404-main\Module I\04\01-Security\app\idp\data
+        target: /opt/keycloak/data
+        bind:
+          create_host_path: true
+  library.service:
+    build:
+      context: D:\Ernesto\GalaxyTraining\Fullstack\FullStack202404\FullStack202404-main\Module I\04\01-Security\app
+      dockerfile: Backend/Domain/Library/Library.Service/Dockerfile
+    container_name: library.service
+    image: libraryservice
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8082"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        published: "8083"
+        protocol: tcp
+  security.service:
+    build:
+      context: D:\Ernesto\GalaxyTraining\Fullstack\FullStack202404\FullStack202404-main\Module I\04\01-Security\app
+      dockerfile: Backend/Infrastructure/Security/Security.Service/Dockerfile
+    container_name: security.service
+    image: securityservice
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8084"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        published: "8085"
+        protocol: tcp
+  sqlserver:
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Password1234
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1434"
+        protocol: tcp
+networks:
+  backend:
+    name: backend
+    driver: bridge
