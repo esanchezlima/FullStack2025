@@ -1,0 +1,152 @@
+name: dockercompose2821320128331569458
+services:
+  full-stack-ng:
+    build:
+      context: D:\GitHub\FullStack2025\FullStack\app\FrontEnd\Angular\full-stack-ng
+      dockerfile: Dockerfile
+    container_name: client.angular
+    environment:
+      AUTHORS_URL: http://localhost:8082/api/authors
+      KEYCLOAK_CLIENT_ID: frontend
+      KEYCLOAK_REALM: fullstack
+      KEYCLOAK_URL: http://localhost:8081
+    image: client.angular
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8086"
+        protocol: tcp
+    restart: on-failure
+  keycloak:
+    command:
+      - start-dev
+    container_name: keycloak
+    environment:
+      KC_DB: mssql
+      KC_DB_PASSWORD: Password1234
+      KC_DB_URL: jdbc:sqlserver://sqlserver:1433;databaseName=keycloak;encrypt=false
+      KC_DB_USERNAME: sa
+      KC_TRANSACTION_XA_ENABLED: "false"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: Password1234
+    image: quay.io/keycloak/keycloak:24.0.2
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8081"
+        protocol: tcp
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: D:\GitHub\FullStack2025\FullStack\app\idp\data
+        target: /opt/keycloak/data
+        bind:
+          create_host_path: true
+  library.service:
+    build:
+      context: D:\GitHub\FullStack2025\FullStack\app
+      dockerfile: Backend/Domain/Library/Library.Service/Dockerfile
+    container_name: library.service
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+    image: libraryservice
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8082"
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        published: "8083"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        protocol: tcp
+    restart: on-failure
+    volumes:
+      - type: bind
+        source: C:\Users\user\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\user\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+  security.service:
+    build:
+      context: D:\GitHub\FullStack2025\FullStack\app
+      dockerfile: Backend/Infrastructure/Security/Security.Service/Dockerfile
+    container_name: security.service
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORTS: "8080"
+      ASPNETCORE_HTTPS_PORTS: "8081"
+    image: securityservice
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "8084"
+        protocol: tcp
+      - mode: ingress
+        target: 443
+        published: "8085"
+        protocol: tcp
+      - mode: ingress
+        target: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 8081
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\user\AppData\Roaming/Microsoft/UserSecrets
+        target: /home/app/.microsoft/usersecrets
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: C:\Users\user\AppData\Roaming/ASP.NET/Https
+        target: /home/app/.aspnet/https
+        read_only: true
+        bind:
+          create_host_path: true
+  sqlserver:
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: Password1234
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    networks:
+      backend: null
+    ports:
+      - mode: ingress
+        target: 1433
+        published: "1434"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: D:\GitHub\FullStack2025\FullStack\app\Backend\Infrastructure\Database\mssql
+        target: /var/opt/mssql/data
+        bind:
+          create_host_path: true
+networks:
+  backend:
+    name: backend
+    driver: bridge

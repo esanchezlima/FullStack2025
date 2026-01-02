@@ -1,30 +1,10 @@
-<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.271090-alpha">
+<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/1.0.1738743">
   <PropertyGroup>
     <StartupCommand>npm start</StartupCommand>
     <JavaScriptTestFramework>Jasmine</JavaScriptTestFramework>
     <!-- Allows the build (or compile) script located on package.json to run on Build -->
     <ShouldRunBuildScript>false</ShouldRunBuildScript>
     <!-- Folder where production build objects will be placed -->
-    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\full-stack-ng\</BuildOutputFolder>
+    <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\full-stack-ng\browser\</BuildOutputFolder>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="src\app\business\application\use-cases\" />
-    <Folder Include="src\app\business\domain\entities\" />
-    <Folder Include="src\app\business\domain\repositories\" />
-    <Folder Include="src\app\core\guards\" />
-    <Folder Include="src\app\core\models\" />
-    <Folder Include="src\app\core\services\" />
-    <Folder Include="src\app\infrastructure\agents\" />
-    <Folder Include="src\app\infrastructure\interceptors\" />
-    <Folder Include="src\app\infrastructure\keycloak\" />
-    <Folder Include="src\app\infrastructure\comunication\" />
-    <Folder Include="src\app\infrastructure\providers\" />
-    <Folder Include="src\app\infrastructure\persistence\" />
-    <Folder Include="src\app\ui\library\authors\pages\" />
-    <Folder Include="src\app\ui\library\books\" />
-    <Folder Include="src\app\ui\main\pages\" />
-    <Folder Include="src\app\ui\main\routes\resolvers\" />
-    <Folder Include="src\app\ui\shared\" />
-    <Folder Include="src\app\ui\security\" />
-  </ItemGroup>
 </Project>

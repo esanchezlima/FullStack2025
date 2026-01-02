@@ -1,6 +1,0 @@
-{
-  "KEYCLOAK_URL": "http://localhost:8081",
-  "KEYCLOAK_REALM": "fullstack",
-  "KEYCLOAK_CLIENT_ID": "frontend",  
-  "AUTHORS_URL": "http://localhost:8082/api/authors"
-}

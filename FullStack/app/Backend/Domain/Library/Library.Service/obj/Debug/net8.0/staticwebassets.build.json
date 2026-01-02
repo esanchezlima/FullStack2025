@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "c5UQtzGsjMH4sxycEYfOHLmdn16kHrjNvuzGwnZGOGc=",
+  "Source": "Library.Service",
+  "BasePath": "_content/Library.Service",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
